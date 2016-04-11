@@ -8,6 +8,8 @@
 
 import UIKit
 import GoogleMaps
+import CoreData
+import MagicalRecord
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.makeKeyAndVisible()
-        
+        MagicalRecord.setupCoreDataStackWithStoreNamed("Bus")
         
         let ListVC = ListViewController(nibName: "ListViewController", bundle: nil)
         let nav = UINavigationController(rootViewController: ListVC)

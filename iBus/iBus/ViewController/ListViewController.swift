@@ -8,30 +8,35 @@
 
 import UIKit
 import ActionSheetPicker_3_0
+import MagicalRecord
 
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
-    var busList:[Int] = []
+    var busList:[AnyObject] = []
     override func viewWillAppear(animated: Bool) {
         self.edgesForExtendedLayout = UIRectEdge.None
         let btnCity = UIBarButtonItem(title: "HN", style: UIBarButtonItemStyle.Plain, target: self, action:#selector(self.btnCityClicked(_:)));
 //        btnCity.title = "HCM"
         self.navigationItem.leftBarButtonItem = btnCity
         
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if(busList.count == 0){
-            for index in 0...15 {
-                busList.insert(index+1, atIndex: index)
-            }
-        }
-        self.tableView.registerNib(UINib(nibName: "BusCell", bundle: nil), forCellReuseIdentifier: "BusCell")
         
+        self.tableView.registerNib(UINib(nibName: "BusCell", bundle: nil), forCellReuseIdentifier: "BusCell")
+        self.loadData()
         // Do any additional setup after loading the view.
+        
+        
+        
+        
+        
+
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,7 +55,17 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
         let cell = self.tableView.dequeueReusableCellWithIdentifier("BusCell", forIndexPath: indexPath) as! BusCell
-        cell.lbBusNumber.text =  "\(busList[indexPath.row])"
+        let bus = busList[indexPath.row] as! Bus
+        print("the fuck is \(bus.id?.floatValue)")
+        cell.lbBusNumber.text =  "\(indexPath.row)"
+        var orderNumberInt : Int?
+        if bus.id != nil {
+            orderNumberInt = Int(bus.id!)
+        } else {
+            orderNumberInt = nil
+        }
+        cell.lbBusTrip.text = "\(Int(orderNumberInt!))"
+        
         
 //        cell.lbBusTrip = 
         return cell
@@ -79,6 +94,28 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
 
     }
+    
+    func loadData(){
+        self.busList = Bus.MR_findAll()
+        if(self.busList.count == 0){
+            self.initEntity()
+            self.busList = Bus.MR_findAll()
+        }
+        self.tableView.reloadData()
+    }
+    
+    func initEntity(){
+        for index in 0...10{
+            var bus = Bus.MR_createEntity() as! Bus
+            
+            bus.id = index
+            bus.number = index + 1
+            
+            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+            print(bus.number?.integerValue)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
