@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ActionSheetPicker_3_0
 
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -15,6 +16,10 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var busList:[Int] = []
     override func viewWillAppear(animated: Bool) {
         self.edgesForExtendedLayout = UIRectEdge.None
+        let btnCity = UIBarButtonItem(title: "HN", style: UIBarButtonItemStyle.Plain, target: self, action:#selector(self.btnCityClicked(_:)));
+//        btnCity.title = "HCM"
+        self.navigationItem.leftBarButtonItem = btnCity
+        
     }
     
     override func viewDidLoad() {
@@ -56,6 +61,23 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let tripVC = TripViewController(nibName: "TripViewController", bundle: nil)
         self.navigationController?.pushViewController(tripVC, animated: true)
+    }
+    
+    func btnCityClicked(sender:UIButton){
+        let list = ["HN","HP","DN","HCM"]
+        
+        
+        ActionSheetStringPicker.showPickerWithTitle("City", rows: list, initialSelection: 1, doneBlock: {
+            picker, value, index in
+            
+            print("value = \(value)")
+            
+            self.navigationItem.leftBarButtonItem?.title = "\(index)"
+            
+            return
+            }, cancelBlock: { ActionStringCancelBlock in return }, origin: sender)
+        
+
     }
     /*
     // MARK: - Navigation
