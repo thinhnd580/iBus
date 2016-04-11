@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nav = UINavigationController(rootViewController: ListVC)
         
         window?.rootViewController = nav
-        GMSServices.provideAPIKey("AIzaSyASNGS85k5WzAaRZZQ0DBwrdNJY14ptJ_c")
+        GMSServices.provideAPIKey("AIzaSyCEbY_9RGrZ9qwJEhi7QKqgab-7fVuOPiw")
         
         return true
     }
