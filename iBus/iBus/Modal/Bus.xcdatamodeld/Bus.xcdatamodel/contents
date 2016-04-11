@@ -3,24 +3,24 @@
     <entity name="Bus" representedClassName="Bus" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="route" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Route" inverseName="buses" inverseEntity="Route" syncable="YES"/>
+        <relationship name="route" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Route" inverseName="bus" inverseEntity="Route" syncable="YES"/>
     </entity>
     <entity name="Point" representedClassName="Point" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="lat" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="long" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="long" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="routes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Route" inverseName="points" inverseEntity="Route" syncable="YES"/>
+        <relationship name="routes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Route" inverseName="points" inverseEntity="Route" syncable="YES"/>
     </entity>
     <entity name="Route" representedClassName="Route" syncable="YES">
         <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="buses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bus" inverseName="route" inverseEntity="Bus" syncable="YES"/>
-        <relationship name="points" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Point" inverseName="routes" inverseEntity="Point" syncable="YES"/>
+        <relationship name="bus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bus" inverseName="route" inverseEntity="Bus" syncable="YES"/>
+        <relationship name="points" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Point" inverseName="routes" inverseEntity="Point" syncable="YES"/>
     </entity>
     <elements>
         <element name="Bus" positionX="88" positionY="90" width="128" height="88"/>
-        <element name="Point" positionX="-54" positionY="-9" width="128" height="118"/>
-        <element name="Route" positionX="-153" positionY="90" width="128" height="103"/>
+        <element name="Point" positionX="-54" positionY="-9" width="128" height="120"/>
+        <element name="Route" positionX="-153" positionY="90" width="128" height="105"/>
     </elements>
 </model>

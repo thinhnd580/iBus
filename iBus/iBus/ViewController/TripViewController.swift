@@ -17,17 +17,22 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var btnReverse: UIButton!
     @IBOutlet weak var mapView: UIView!
     
-    var addressList:[String] = ["so 1","so2","so3"]
-    var addressListReverse:[String] = []
+    var points: NSSet?
+    var pointList:[AnyObject] = []
+    var pointListReverse:[AnyObject] = []
     var googlemap:(GMSMapView) = GMSMapView()
     
     override func viewWillAppear(animated: Bool) {
         self.edgesForExtendedLayout = UIRectEdge.None
+        self.pointList = (points?.allObjects)!
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerNib(UINib(nibName: "DirectionCell", bundle: nil), forCellReuseIdentifier: "DirectionCell")
+        
+        
+        
         
         
         
@@ -116,7 +121,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         
-        self.addressListReverse = self.addressList.reverse()
+        self.pointListReverse = self.pointList.reverse()
         self.btnReverse.selected = !self.btnReverse.selected
         self.tableView.reloadData()
         
@@ -127,16 +132,19 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.addressList.count
+        return self.pointList.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("DirectionCell", forIndexPath: indexPath) as! DirectionCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         if self.btnReverse.selected {
-            cell.lbAddress.text = self.addressListReverse[indexPath.row]
+            let point = self.pointList[indexPath.row] as! Point
+            cell.lbAddress.text = point.name
         }
         else{
-            cell.lbAddress.text = self.addressList[indexPath.row]
+            let point = self.pointList.reverse()[indexPath.row] as! Point
+            cell.lbAddress.text = point.name
         }
         
         

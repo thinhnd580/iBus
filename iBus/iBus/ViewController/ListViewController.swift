@@ -56,15 +56,16 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
         let cell = self.tableView.dequeueReusableCellWithIdentifier("BusCell", forIndexPath: indexPath) as! BusCell
         let bus = busList[indexPath.row] as! Bus
-        print("the fuck is \(bus.id?.floatValue)")
-        cell.lbBusNumber.text =  "\(indexPath.row)"
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        
+        cell.lbBusNumber.text =  "\(indexPath.row + 1)"
         var orderNumberInt : Int?
         if bus.id != nil {
             orderNumberInt = Int(bus.id!)
         } else {
             orderNumberInt = nil
         }
-        cell.lbBusTrip.text = "\(Int(orderNumberInt!))"
+        cell.lbBusTrip.text = "\(bus.route!.detail!)"
         
         
 //        cell.lbBusTrip = 
@@ -75,6 +76,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let tripVC = TripViewController(nibName: "TripViewController", bundle: nil)
+        let routeSelected = Route.MR_findFirstByAttribute("id", withValue: indexPath.row) as! Route
+        tripVC.points = routeSelected.points
         self.navigationController?.pushViewController(tripVC, animated: true)
     }
     
@@ -105,15 +108,42 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func initEntity(){
-        for index in 0...10{
-            var bus = Bus.MR_createEntity() as! Bus
-            
-            bus.id = index
-            bus.number = index + 1
-            
-            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
-            print(bus.number?.integerValue)
-        }
+        
+        let bus = Bus.MR_createEntity() as! Bus
+        
+        bus.id = 0
+        bus.number = 1
+        
+        
+        let route = Route.MR_createEntity() as! Route
+        route.id = 0
+        route.detail = "Lộ trình xe 01"
+        route.bus = bus
+        bus.route = route
+//        route.points
+        
+        
+        let point1 = Point.MR_createEntity() as! Point
+        point1.id = 0
+        point1.lat = 21.0471598
+        point1.long = 105.8769165
+        point1.name = "BX Gia Lâm"
+        point1.addRouteObject(route)
+        
+        
+        let point2 = Point.MR_createEntity() as! Point
+        point2.id = 0
+        point2.lat = 20.9502109
+        point2.long = 105.7450316
+        point2.name = "BX Yên Nghĩa"
+        point2.addRouteObject(route)
+        
+        route.addPointObject(point1)
+        route.addPointObject(point2)
+        
+        
+        
+        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
     }
     
     /*

@@ -15,9 +15,17 @@ import CoreData
 extension Point {
 
     @NSManaged var id: NSNumber?
+    @NSManaged var lat: NSNumber?
+    @NSManaged var long: NSNumber?
     @NSManaged var name: String?
-    @NSManaged var lat: String?
-    @NSManaged var long: String?
-    @NSManaged var routes: Route?
+    @NSManaged var routes: NSSet?
 
+    func addRouteObject(value:Route) {
+        let items = self.mutableSetValueForKey("routes");
+        items.addObject(value)
+    }
+    func removeRouteObject(value:Route) {
+        let items = self.mutableSetValueForKey("routes");
+        items.removeObject(value)
+    }
 }

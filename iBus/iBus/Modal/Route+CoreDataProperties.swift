@@ -14,9 +14,17 @@ import CoreData
 
 extension Route {
 
-    @NSManaged var id: NSNumber?
     @NSManaged var detail: String?
-    @NSManaged var buses: NSSet?
-    @NSManaged var points: Point?
-
+    @NSManaged var id: NSNumber?
+    @NSManaged var bus: Bus?
+    @NSManaged var points: NSSet?
+    
+    func addPointObject(value:Point) {
+        let items = self.mutableSetValueForKey("points");
+        items.addObject(value)
+    }
+    func removePointObject(value:Point) {
+        let items = self.mutableSetValueForKey("points");
+        items.removeObject(value)
+    }
 }
