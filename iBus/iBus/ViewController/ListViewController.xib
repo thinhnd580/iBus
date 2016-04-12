@@ -22,6 +22,9 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yO9-hw-E7t">
                             <rect key="frame" x="312" y="17" width="48" height="30"/>
                             <state key="normal" title="Search"/>
+                            <connections>
+                                <action selector="btnSearchClicked:" destination="-1" eventType="touchUpInside" id="muV-uF-2gB"/>
+                            </connections>
                         </button>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BGm-1R-DSO">
                             <rect key="frame" x="15" y="15" width="277" height="30"/>

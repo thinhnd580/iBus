@@ -19,12 +19,11 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var points: NSSet?
     var pointList:[AnyObject] = []
-    var pointListReverse:[AnyObject] = []
     var googlemap:(GMSMapView) = GMSMapView()
     
     override func viewWillAppear(animated: Bool) {
         self.edgesForExtendedLayout = UIRectEdge.None
-        self.pointList = (points?.allObjects)!
+//        self.pointList = (points?.allObjects)!
     }
     
     override func viewDidLoad() {
@@ -119,9 +118,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         
-        
-        
-        self.pointListReverse = self.pointList.reverse()
         self.btnReverse.selected = !self.btnReverse.selected
         self.tableView.reloadData()
         
@@ -139,11 +135,11 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = self.tableView.dequeueReusableCellWithIdentifier("DirectionCell", forIndexPath: indexPath) as! DirectionCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         if self.btnReverse.selected {
-            let point = self.pointList[indexPath.row] as! Point
+            let point = self.pointList.reverse()[indexPath.row] as! Point
             cell.lbAddress.text = point.name
         }
         else{
-            let point = self.pointList.reverse()[indexPath.row] as! Point
+            let point = self.pointList[indexPath.row] as! Point
             cell.lbAddress.text = point.name
         }
         

@@ -19,13 +19,16 @@ extension Point {
     @NSManaged var long: NSNumber?
     @NSManaged var name: String?
     @NSManaged var routes: NSSet?
-
     func addRouteObject(value:Route) {
         let items = self.mutableSetValueForKey("routes");
         items.addObject(value)
+        self.routeArray.insert(value, atIndex: self.routeArray.count)
     }
     func removeRouteObject(value:Route) {
         let items = self.mutableSetValueForKey("routes");
         items.removeObject(value)
+    }
+    func getRouteArray() -> [AnyObject] {
+        return self.routeArray
     }
 }

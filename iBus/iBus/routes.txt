@@ -1,0 +1,5 @@
+01,BX Gia Lâm -  BX Yên Nghĩa,Lộ trình chi tiết ở đây
+02,Bác Cổ - BX Yên Nghĩa,Lộ trình chi tiết ở đây
+03,Bến xe Giáp Bát - Bến xe Gia Lâm,Lộ trình chi tiết ở đây
+04,Bác Cổ - BX Yên Nghĩa,Lộ trình chi tiết ở đây
+
