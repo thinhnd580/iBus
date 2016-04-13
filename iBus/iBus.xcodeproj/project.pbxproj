@@ -14,11 +14,12 @@
 		25F0EED81CBB4F4300BE9201 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F0EED61CBB4F4300BE9201 /* Point.swift */; };
 		25F0EEDC1CBB548300BE9201 /* goPoints01.txt in Resources */ = {isa = PBXBuildFile; fileRef = 25F0EEDA1CBB548300BE9201 /* goPoints01.txt */; };
 		25F0EEDE1CBD507100BE9201 /* routes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 25F0EEDD1CBD507100BE9201 /* routes.txt */; };
-		25FACFCB1CBD3404008AC30B /* Route+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FACFC91CBD3404008AC30B /* Route+CoreDataProperties.swift */; };
-		25FACFCC1CBD3404008AC30B /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FACFCA1CBD3404008AC30B /* Route.swift */; };
 		B21634481CBB3A9400497FF2 /* ActionSheetPicker_3_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21634471CBB3A9400497FF2 /* ActionSheetPicker_3_0.framework */; };
 		B27A6C101CBB564F002F787E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B27A6C0F1CBB564F002F787E /* Alamofire.framework */; };
 		B27A6C141CBB6538002F787E /* Bus.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B27A6C121CBB6538002F787E /* Bus.xcdatamodeld */; };
+		B2CBC3F01CBDDF550038F199 /* Route+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CBC3EE1CBDDF550038F199 /* Route+CoreDataProperties.swift */; };
+		B2CBC3F11CBDDF550038F199 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CBC3EF1CBDDF550038F199 /* Route.swift */; };
+		B2CBC3F41CBDF5670038F199 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CBC3F31CBDF5670038F199 /* Utility.swift */; };
 		B2DC16141CB79FB90019587C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC16131CB79FB90019587C /* AppDelegate.swift */; };
 		B2DC16161CB79FB90019587C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC16151CB79FB90019587C /* ViewController.swift */; };
 		B2DC16191CB79FB90019587C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2DC16171CB79FB90019587C /* Main.storyboard */; };
@@ -41,12 +42,13 @@
 		25F0EED61CBB4F4300BE9201 /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Point.swift; path = Modal/Point.swift; sourceTree = "<group>"; };
 		25F0EEDA1CBB548300BE9201 /* goPoints01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = goPoints01.txt; sourceTree = "<group>"; };
 		25F0EEDD1CBD507100BE9201 /* routes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routes.txt; sourceTree = "<group>"; };
-		25FACFC91CBD3404008AC30B /* Route+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Route+CoreDataProperties.swift"; path = "Modal/Route+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		25FACFCA1CBD3404008AC30B /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Route.swift; path = Modal/Route.swift; sourceTree = "<group>"; };
 		854F625CCADFBEA772621FA7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B21634471CBB3A9400497FF2 /* ActionSheetPicker_3_0.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ActionSheetPicker_3_0.framework; path = "Pods/../build/Debug-iphoneos/ActionSheetPicker_3_0.framework"; sourceTree = "<group>"; };
 		B27A6C0F1CBB564F002F787E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../../Library/Developer/Xcode/DerivedData/iBus-biyunfwipuozwjfidndifwfidcvb/Build/Products/Debug-iphonesimulator/Alamofire.framework"; sourceTree = "<group>"; };
 		B27A6C131CBB6538002F787E /* Bus.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bus.xcdatamodel; sourceTree = "<group>"; };
+		B2CBC3EE1CBDDF550038F199 /* Route+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Route+CoreDataProperties.swift"; path = "Modal/Route+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B2CBC3EF1CBDDF550038F199 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Route.swift; path = Modal/Route.swift; sourceTree = "<group>"; };
+		B2CBC3F31CBDF5670038F199 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utility.swift; path = Extend/Utility.swift; sourceTree = "<group>"; };
 		B2DC16101CB79FB90019587C /* iBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2DC16131CB79FB90019587C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2DC16151CB79FB90019587C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -98,12 +100,20 @@
 			isa = PBXGroup;
 			children = (
 				B27A6C121CBB6538002F787E /* Bus.xcdatamodeld */,
-				25FACFC91CBD3404008AC30B /* Route+CoreDataProperties.swift */,
-				25FACFCA1CBD3404008AC30B /* Route.swift */,
 				25F0EED51CBB4F4300BE9201 /* Point+CoreDataProperties.swift */,
 				25F0EED61CBB4F4300BE9201 /* Point.swift */,
+				B2CBC3EE1CBDDF550038F199 /* Route+CoreDataProperties.swift */,
+				B2CBC3EF1CBDDF550038F199 /* Route.swift */,
 			);
 			name = Modal;
+			sourceTree = "<group>";
+		};
+		B2CBC3F21CBDF52C0038F199 /* Extend */ = {
+			isa = PBXGroup;
+			children = (
+				B2CBC3F31CBDF5670038F199 /* Utility.swift */,
+			);
+			name = Extend;
 			sourceTree = "<group>";
 		};
 		B2DC16071CB79FB90019587C = {
@@ -127,6 +137,7 @@
 		B2DC16121CB79FB90019587C /* iBus */ = {
 			isa = PBXGroup;
 			children = (
+				B2CBC3F21CBDF52C0038F199 /* Extend */,
 				B27A6C111CBB64E1002F787E /* Modal */,
 				B2DC16311CB7A3F80019587C /* CustomCell */,
 				B2DC16261CB7A01F0019587C /* Resource */,
@@ -310,13 +321,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				25F0EED71CBB4F4300BE9201 /* Point+CoreDataProperties.swift in Sources */,
+				B2CBC3F01CBDDF550038F199 /* Route+CoreDataProperties.swift in Sources */,
+				B2CBC3F11CBDDF550038F199 /* Route.swift in Sources */,
 				B2DC16161CB79FB90019587C /* ViewController.swift in Sources */,
-				25FACFCB1CBD3404008AC30B /* Route+CoreDataProperties.swift in Sources */,
-				25FACFCC1CBD3404008AC30B /* Route.swift in Sources */,
 				B2DC16381CB7AE800019587C /* TripViewController.swift in Sources */,
 				B2DC16141CB79FB90019587C /* AppDelegate.swift in Sources */,
 				B2DC163E1CB7BBDD0019587C /* DirectionCell.swift in Sources */,
 				25F0EED81CBB4F4300BE9201 /* Point.swift in Sources */,
+				B2CBC3F41CBDF5670038F199 /* Utility.swift in Sources */,
 				B27A6C141CBB6538002F787E /* Bus.xcdatamodeld in Sources */,
 				B2DC16341CB7A4280019587C /* BusCell.swift in Sources */,
 				B2DC162F1CB7A1020019587C /* ListViewController.swift in Sources */,
