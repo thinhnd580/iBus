@@ -7,7 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ListViewController" customModule="iBus" customModuleProvider="target">
             <connections>
+                <outlet property="loadIndicator" destination="4ef-IS-DAj" id="WbR-Zr-h8J"/>
                 <outlet property="tableView" destination="UDe-1i-maN" id="a7k-wu-pRj"/>
+                <outlet property="txtFieldSearchContent" destination="BGm-1R-DSO" id="fNV-XX-Pzd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -42,19 +44,41 @@
                                 <outlet property="delegate" destination="-1" id="QXV-u1-f4q"/>
                             </connections>
                         </tableView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZN4-df-odP">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4ef-IS-DAj">
+                                    <rect key="frame" x="178" y="324" width="20" height="20"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="4ef-IS-DAj" firstAttribute="centerY" secondItem="ZN4-df-odP" secondAttribute="centerY" id="iOu-Gr-U1t"/>
+                                <constraint firstItem="4ef-IS-DAj" firstAttribute="centerX" secondItem="ZN4-df-odP" secondAttribute="centerX" id="tFb-xL-uqm"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="ZN4-df-odP" firstAttribute="top" secondItem="W2D-hp-RPS" secondAttribute="top" id="8lU-RJ-yba"/>
                         <constraint firstAttribute="trailing" secondItem="UDe-1i-maN" secondAttribute="trailing" id="Ju3-N7-mP5"/>
                         <constraint firstItem="BGm-1R-DSO" firstAttribute="top" secondItem="W2D-hp-RPS" secondAttribute="top" constant="15" id="MTV-GN-q3T"/>
                         <constraint firstItem="yO9-hw-E7t" firstAttribute="leading" secondItem="BGm-1R-DSO" secondAttribute="trailing" constant="20" id="O6A-WE-0rG"/>
                         <constraint firstAttribute="trailing" secondItem="yO9-hw-E7t" secondAttribute="trailing" constant="15" id="PrR-Cc-GTK"/>
+                        <constraint firstAttribute="bottom" secondItem="ZN4-df-odP" secondAttribute="bottom" id="UJi-bU-adb"/>
                         <constraint firstAttribute="bottom" secondItem="UDe-1i-maN" secondAttribute="bottom" id="Ubq-bF-f8U"/>
                         <constraint firstItem="UDe-1i-maN" firstAttribute="leading" secondItem="W2D-hp-RPS" secondAttribute="leading" id="Uzc-eO-3WE"/>
+                        <constraint firstItem="ZN4-df-odP" firstAttribute="leading" secondItem="W2D-hp-RPS" secondAttribute="leading" id="Wcq-e8-0nM"/>
                         <constraint firstItem="yO9-hw-E7t" firstAttribute="top" secondItem="W2D-hp-RPS" secondAttribute="top" constant="17" id="Yxo-Me-pjo"/>
                         <constraint firstItem="BGm-1R-DSO" firstAttribute="leading" secondItem="W2D-hp-RPS" secondAttribute="leading" constant="15" id="fE7-8k-dxP"/>
+                        <constraint firstAttribute="trailing" secondItem="ZN4-df-odP" secondAttribute="trailing" id="keL-S9-iWd"/>
                         <constraint firstItem="UDe-1i-maN" firstAttribute="top" secondItem="yO9-hw-E7t" secondAttribute="bottom" constant="8" id="nn1-B5-Xc3"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="subviews">
+                            <exclude reference="ZN4-df-odP"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

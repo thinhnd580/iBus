@@ -19,5 +19,16 @@ extension Route {
     @NSManaged var tripDetail: String?
     @NSManaged var goPoints: NSOrderedSet?
     @NSManaged var returnPoints: NSOrderedSet?
+    func addGoPointObject(value:Point) {
+        let items = self.mutableOrderedSetValueForKey("goPoints");
+
+//        let items = self.valueForKey("goPoints")
+        items.addObject(value)
+    }
+    
+    func removePointObject(value:Point) {
+        let items = self.mutableSetValueForKey("goPoints");
+        items.removeObject(value)
+    }
 
 }

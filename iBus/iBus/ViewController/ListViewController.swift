@@ -12,31 +12,29 @@ import MagicalRecord
 
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var txtFieldSearchContent: UITextField!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
     
     var busList:[AnyObject] = []
     override func viewWillAppear(animated: Bool) {
+        //set up navigation bar
         self.edgesForExtendedLayout = UIRectEdge.None
         let btnCity = UIBarButtonItem(title: "HN", style: UIBarButtonItemStyle.Plain, target: self, action:#selector(self.btnCityClicked(_:)));
-//        btnCity.title = "HCM"
         self.navigationItem.leftBarButtonItem = btnCity
-//        self.preloadData()
-        self.loadData()
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.tableView.registerNib(UINib(nibName: "BusCell", bundle: nil), forCellReuseIdentifier: "BusCell")
-        self.loadData()
         // Do any additional setup after loading the view.
         
+        self.tableView.registerNib(UINib(nibName: "BusCell", bundle: nil), forCellReuseIdentifier: "BusCell")
+        
+        self.loadData()
+        self.loadIndicator.superview?.hidden = true
         
         
-        
-        
-
         
     }
 
@@ -54,7 +52,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
+        
         let cell = self.tableView.dequeueReusableCellWithIdentifier("BusCell", forIndexPath: indexPath) as! BusCell
         let bus = busList[indexPath.row] as! Route
         cell.selectionStyle = UITableViewCellSelectionStyle.None
@@ -62,8 +60,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.lbBusNumber.text =  "\(bus.busNumber!)"
         cell.lbBusTrip.text = "\(bus.routeTrip!)"
         
-        
-//        cell.lbBusTrip = 
         return cell
         
         
@@ -72,11 +68,14 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let tripVC = TripViewController(nibName: "TripViewController", bundle: nil)
         let routeSelected = self.busList[indexPath.row] as! Route
-        tripVC.pointList = routeSelected.getGoPointArray()
+        tripVC.pointList = (routeSelected.goPoints!.array)
         self.navigationController?.pushViewController(tripVC, animated: true)
     }
     
     func btnCityClicked(sender:UIButton){
+        
+        /* Confic picker */
+        
         let list = ["HN","HP","DN","HCM"]
         
         
@@ -94,18 +93,24 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func loadData(){
+        
         self.busList = Route.MR_findAll()
-//        if(self.busList.count == 0){
-//            self.initEntity()
+        
+        if( self.busList.count == 0){
             self.preloadData()
             self.busList = Route.MR_findAll()
-//        }
+        }
+        
+//        
+//         NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+        // load data from file
+        
         self.tableView.reloadData()
     }
     
     func initEntity(){
         
-        
+        removeData()
         
         
         let route = Route.MR_createEntity() as! Route
@@ -146,65 +151,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
-    func parseTxtToPoint (contentsOfURL: NSURL, encoding: NSStringEncoding, error: NSErrorPointer) -> [(lat:String, long:String, name: String)]? {
-    // Load the CSV file and parse it
-        var items:[(lat:String, long:String, name: String)]?
-    
-        let content = String(contentsOfURL: contentsOfURL, encoding: encoding, error: error)
-        items = []
-        let lines:[String] = content.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) as [String]
-    
-        for line in lines {
-            if line != "" {
-                // For a line with double quotes
-                // we use NSScanner to perform the parsing
-            
-                let values =  line.componentsSeparatedByString(",")
-//                var range = values[0].rangeOfString("\"")
-                
-                let item = (lat: values[0], long: values[1], name: values[2])
-                items?.append(item)
-            }
-        }
-    
-        return items
-    }
-    
-    func parseTxtToRoute (path: String, encoding: NSStringEncoding, error: NSErrorPointer) -> [(busNumber:String, routeTrip:String, tripDetail: String)]? {
-        // Load the CSV file and parse it
         
-        
-        var items:[(busNumber:String, routeTrip:String, tripDetail: String)]?
-        items = []
-        
-        do {
-            let mytext = try String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
-            print(mytext)   // "some text\n"
-            let lines:[String] = mytext.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) as [String]
-            
-            for line in lines {
-                if line != "" {
-                    // For a line with double quotes
-                    // we use NSScanner to perform the parsing
-                    
-                    let values =  line.componentsSeparatedByString(",")
-                    //                var range = values[0].rangeOfString("\"")
-                    
-                    let item = (busNumber: values[0], routeTrip: values[1], tripDetail: values[2])
-                    items?.append(item)
-                }
-            }
-
-            
-        } catch let error as NSError {
-            print("error loading from url \(path)")
-            print(error.localizedDescription)
-        }
-//        print("this is content $$$$$$$$$$$$$$$ \(content)")
-        
-        return items
-    }
-    
     func preloadData () {
     // Retrieve data from the source file
         if let contentsOfURL = NSBundle.mainBundle().pathForResource("routes", ofType: "txt") {
@@ -213,7 +160,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             removeData()
             
             var error:NSError?
-            if let items = parseTxtToRoute(contentsOfURL, encoding: NSUTF8StringEncoding, error: &error) {
+            if let items = Utility.parseTxtToRoute(contentsOfURL, encoding: NSUTF8StringEncoding, error: &error) {
                 // Preload the menu items
                 
                 for item in items{
@@ -221,12 +168,53 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                     route.busNumber = item.busNumber
                     route.routeTrip = item.routeTrip
                     route.tripDetail = item.tripDetail
+
                     NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
                 }
                 
             }
         }
+        else{
+            print("cann't load data form routes.text")
+        }
+        
+        if let contentsOfURL = NSBundle.mainBundle().pathForResource("goPoints01", ofType: "txt") {
+            
+            // Remove all the menu items before preloading
+//            removeData()
+            
+            var error:NSError?
+            if let items = Utility.parseTxtToPoint(contentsOfURL, encoding: NSUTF8StringEncoding, error: &error) {
+                // Preload the menu items
+                
+                for item in items{
+                    let point = Point.MR_createEntity() as! Point
+                    
 
+                    
+                    point.lat = NSNumber.init(double: Double(item.lat)!)
+                    point.long = NSNumber.init(double: Double(item.long)!)
+                    point.name = item.name
+                    
+                    
+//                    point.addRouteObject(<#T##value: Route##Route#>)
+                    let route = Route.MR_findFirstByAttribute("busNumber", withValue: "01") as! Route
+                    
+                    point.addRouteObject(route)
+                    route.addGoPointObject(point)
+                    
+                    NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+                }
+                
+            }
+        }
+        else{
+            print("cann't load data form point.txt")
+        }
+        NSManagedObjectContext.MR_defaultContext().MR_saveInBackgroundCompletion { 
+            print("Complete")
+        }
+        
     }
     
     func removeData () {
@@ -236,9 +224,26 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             route as! Route
             route.MR_deleteEntity()
         }
+        
+        let points = Point.MR_findAll()
+        for point in points {
+            point as! Point
+            point.MR_deleteEntity()
+        }
+        
     }
     @IBAction func btnSearchClicked(sender: AnyObject) {
-        self.preloadData()
+        let query = self.txtFieldSearchContent.text
+        
+        // Predict Route
+        let routePredict = NSPredicate(format: "busNumber CONTAINS[c] %@ OR tripDetail CONTAINS[c] %@", query!, query! )
+        let routes:[AnyObject] = Route.MR_findAllWithPredicate(routePredict)
+        
+        
+        self.busList = routes
+        self.tableView.reloadData()
+        
+
     }
     /*
     // MARK: - Navigation

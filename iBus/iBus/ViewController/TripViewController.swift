@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Foundation;
+import Foundation
 import GoogleMaps
 import Alamofire
 
@@ -23,34 +23,35 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewWillAppear(animated: Bool) {
         self.edgesForExtendedLayout = UIRectEdge.None
-//        self.pointList = (points?.allObjects)!
+        self.mapView.updateConstraints()
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerNib(UINib(nibName: "DirectionCell", bundle: nil), forCellReuseIdentifier: "DirectionCell")
         
-        
-        
-        
-        
-        
-        let camera = GMSCameraPosition.cameraWithLatitude(-33.86,
-                                                          longitude: 151.20, zoom: 12)
+        let camera = GMSCameraPosition.cameraWithLatitude(21.022693,
+                                                          longitude: 105.8018584, zoom: 11)
         
         let screenSize: CGRect = UIScreen.mainScreen().bounds
-        self.googlemap = GMSMapView.mapWithFrame(CGRect.init(x: 0.0, y: 0.0, width:screenSize.width, height: screenSize.height/3), camera: camera)
-//        let mapView = GMSMapView.mapWithFrame(self.mapView.frame, camera: camera)
+        print(self.mapView.bounds.size.height)
+        print(screenSize.height/3)
+        self.googlemap = GMSMapView.mapWithFrame(CGRect.init(x: 0.0, y: 0.0, width:screenSize.width, height: self.mapView.bounds.size.height), camera: camera)
         self.googlemap.myLocationEnabled = true
         self.mapView.addSubview(self.googlemap)
-//        self.mapView = mapView
         
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(-33.86, 151.20)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
-        marker.map = self.googlemap
-        
+        for index in 0...pointList.count-1{
+            let point = self.pointList[index] as! Point
+            print("\(point.lat!.floatValue)+\(point.long!.floatValue)")
+            let x = point.lat!.doubleValue
+            let y = point.long!.doubleValue
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2DMake(x, y)
+            marker.title = point.name
+            marker.snippet = "Vietnam"
+            marker.map = self.googlemap
+        }
         
         // Do any additional setup after loading the view.
     }
@@ -62,13 +63,13 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBAction func btnChangeDirectionClicked(sender: AnyObject) {
         
-        let startLat = 21.0235698
-        let startLong = 105.7858399
-        let endLat = 21.0471598
-        let endLong = 105.8769112
+        let startLat = 21.0471598
+        let startLong = 105.8769165
+        let endLat = 20.9502109
+        let endLong = 105.7450316
         let url = "https://maps.googleapis.com/maps/api/directions/json"
         
-        let urlString = "\(url)?origin=\(startLat),\(startLong)&destination=\(endLat),\(endLong)&sensor=true&key=AIzaSyDXTt4b08jKB6Wbvyup_pPtt97GWPfTBGs"
+        let urlString = "\(url)?origin=\(startLat),\(startLong)&destination=\(endLat),\(endLong)&mode=transit&sensor=true&key=AIzaSyCuSymnNzggY1QwVQTFybjQxQfhjw9-tR0"
 
         Alamofire.request(.GET, urlString)
             .responseJSON { response in
@@ -79,17 +80,36 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 
                 
                 
-                if let JSON = response.result.value {
+                if let JSON = response.data {
 //                    print("JSON: \(JSON)")
                     do {
                         let json = try NSJSONSerialization.JSONObjectWithData(response.data! , options: []) as! [String:AnyObject]
-                        
-                        print(json["routes"])
-                        let route = json["routes"] as? NSDictionary
-//                        let path = GMSPath(fromEncodedPath: route[0]["overview_polyline"]["points"])
-//                        let singleLine = GMSPolyline(polylineWithPath:path)
+                        //TODO  : direction change for each time
+                        print(json["routes"]!)
+                        let routes:[AnyObject] = json["routes"]! as! [AnyObject]
+                        print("count \(routes.count)")
+                        if(routes.count > 0){
+                            let routeDict = routes[0] as! [String:AnyObject]
+                            let routeOverviewPolyline = routeDict["overview_polyline"] as! [String:AnyObject]
+                            let points = routeOverviewPolyline["points"] as! String
+                            let path = GMSPath(fromEncodedPath: points)
+                            
+                            let polyline = GMSPolyline(path: path)
+                            polyline.strokeWidth = 7
+                            polyline.strokeColor = UIColor.greenColor()
+                            polyline.map = self.googlemap
+                            
+                            
+//                            GMSPolyline *singleLine = [GMSPolyline polylineWithPath:path];
+                            //            singleLine.strokeWidth = 7;
+                            //            singleLine.strokeColor = [UIColor greenColor];
+                            //            singleLine.map = self.mapView;
+                            
+                        }
                         
                         // use anyObj here
+                        
+                        
                     } catch let error {
                         print("json error: \(error)")
                     }

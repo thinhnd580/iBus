@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TripViewController" customModule="iBus" customModuleProvider="target">
@@ -22,6 +21,9 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFx-Jw-vYI" userLabel="Map View">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="189"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="189" id="eSl-U9-AWc"/>
+                    </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bn9-oI-s5J">
                     <rect key="frame" x="0.0" y="189" width="320" height="379"/>
@@ -58,7 +60,6 @@
                 <constraint firstAttribute="trailing" secondItem="XFx-Jw-vYI" secondAttribute="trailing" id="0ON-3v-agA"/>
                 <constraint firstAttribute="bottom" secondItem="Bn9-oI-s5J" secondAttribute="bottom" id="6t1-lZ-06u"/>
                 <constraint firstItem="XFx-Jw-vYI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="AN5-aa-wkX"/>
-                <constraint firstItem="XFx-Jw-vYI" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="1/3" id="DJR-Qw-Drk"/>
                 <constraint firstItem="XFx-Jw-vYI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="F2J-Bf-dKT"/>
                 <constraint firstItem="Bn9-oI-s5J" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Pid-KY-GwJ"/>
                 <constraint firstItem="Bn9-oI-s5J" firstAttribute="top" secondItem="XFx-Jw-vYI" secondAttribute="bottom" id="VxT-1g-7cj"/>
